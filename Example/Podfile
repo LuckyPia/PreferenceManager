@@ -1,0 +1,6 @@
+use_frameworks!
+target 'PreferenceManager_Tests' do
+  pod 'PreferenceManager', :path => '../'
+  
+  
+end
