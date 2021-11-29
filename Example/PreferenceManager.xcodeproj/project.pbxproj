@@ -134,6 +134,7 @@
 				TargetAttributes = {
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = DJUK66NU87;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -326,6 +327,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 129B608528E7C29E76628171 /* Pods-PreferenceManager_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = DJUK66NU87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -348,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 20AE52C0D2075230F843A74E /* Pods-PreferenceManager_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = DJUK66NU87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",

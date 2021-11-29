@@ -6,16 +6,10 @@
 [![License](https://img.shields.io/cocoapods/l/PreferenceManager.svg?style=flat)](https://cocoapods.org/pods/PreferenceManager)
 [![Platform](https://img.shields.io/cocoapods/p/PreferenceManager.svg?style=flat)](https://cocoapods.org/pods/PreferenceManager)
 
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-## Requirements
+## 简介
+iOS用户偏好设置管理器
 
 ## Installation
-
-PreferenceManager is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'PreferenceManager'
@@ -28,6 +22,7 @@ let Preferences = PreferenceManager.shared
 
 // 第一步，设置当前用户ID，设置一次
 Preferences.userId = {
+    // return UserManager.shared.userId
     return "123456"
 }
 
