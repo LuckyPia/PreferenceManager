@@ -9,15 +9,15 @@
 ## 简介
 iOS用户偏好设置管理器
 
-## Installation
+## 安装
 
 ```ruby
 pod 'PreferenceManager'
 ```
 
-## Get Start
+## 使用
 ```swift
-// 简化名称
+// 简化名称（全局配置）
 let Preferences = PreferenceManager.shared
 
 // 第一步，设置当前用户ID，设置一次
@@ -28,8 +28,8 @@ Preferences.userId = {
 
 // 第二步，配置key
 extension PreferenceKeys {
-    /// 是否是新用户
-    static let userId = PreferenceKey<String>(name: "isLogin", isPublic: false, defaultValue: "123")
+    /// 是否登录
+    static let isLogin = PreferenceKey<Bool>(name: "isLogin", userAssociation: true, defaultValue: false)
 }
 
 // 第三步，使用

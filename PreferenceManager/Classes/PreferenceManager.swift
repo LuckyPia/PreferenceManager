@@ -78,12 +78,21 @@ public extension PreferenceManager {
         ///   - name: 名称
         ///   - isPublic: 是否是公共
         ///   - defaultValue: 默认值，注意：若为自定义类型，请转换成UserDefaults可以直接存储的类型，直接存储会导致崩溃
-        public init(name: String, isPublic: Bool = true, defaultValue: Any? = nil) {
+        public init(name: String, isPublic: Bool, defaultValue: Any? = nil) {
             self.name = name
             self.isPublic = isPublic
             self.defaultValue = defaultValue
             // 加入默认值池
             PreferenceManager.shared.addDefaultPreferences(key: self)
+        }
+        
+        /// 便捷初始化方法
+        /// - Parameters:
+        ///   - name: 名称
+        ///   - userAssociation: 是否关联用户，与isPublic相反，便于理解
+        ///   - defaultValue: 默认值，注意：若为自定义类型，请转换成UserDefaults可以直接存储的类型，直接存储会导致崩溃
+        convenience init(name: String, userAssociation: Bool, defaultValue: Any? = nil) {
+            self.init(name: name, isPublic: !userAssociation, defaultValue: defaultValue)
         }
 
         /// 完整key
