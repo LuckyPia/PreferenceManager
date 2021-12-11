@@ -50,9 +50,14 @@ let userId = Preferences[.userId]
 #### 缺点：
 1. 自定义数据类型，默认值需要自己转换
 
-## Author
+## 更新日志
+### 1.0.3
+1. Date解析支持
+2. 补全注释
 
-LuckyPia, 664454335@qq.com
+## 联系我
+
+可以通过邮箱来联系我: 664454335@qq.com
 
 ## License
 

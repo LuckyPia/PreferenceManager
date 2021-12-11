@@ -31,6 +31,7 @@ public final class PreferenceManager {
     // 默认值池
     var defaultPreferences: [BaseKey: Any] = [:]
 
+    // MARK: 添加到默认池，不会重复添加
     /// 添加到默认池，不会重复添加
     func addDefaultPreferences(key: BaseKey) {
         // 有默认值则加入默认值池
@@ -46,6 +47,7 @@ public final class PreferenceManager {
         }
     }
 
+    // MARK: 清空用户信息
     /// 清空用户信息
     public func clearUser(by userId: String) {
         let dict = defaults.dictionaryRepresentation()
@@ -73,6 +75,7 @@ public extension PreferenceManager {
         /// 默认值
         let defaultValue: Any?
 
+        // MARK: 初始化方法
         /// 初始化方法
         /// - Parameters:
         ///   - name: 名称
@@ -86,6 +89,7 @@ public extension PreferenceManager {
             PreferenceManager.shared.addDefaultPreferences(key: self)
         }
         
+        // MARK: 便捷初始化方法
         /// 便捷初始化方法
         /// - Parameters:
         ///   - name: 名称
@@ -95,6 +99,7 @@ public extension PreferenceManager {
             self.init(name: name, isPublic: !userAssociation, defaultValue: defaultValue)
         }
 
+        // MARK: 完整key
         /// 完整key
         var fullKey: String {
             return PreferenceManager.shared.fullKey(self, PreferenceManager.shared.userId())
@@ -113,6 +118,7 @@ public extension PreferenceManager {
 
 // MARK: 偏好设置管理器 - 下标类型扩展
 public extension PreferenceManager {
+    // MARK: 数据类型 - Any?
     subscript(key: Key<Any>) -> Any? {
         get { return defaults.object(forKey: key.fullKey) }
         set {
@@ -121,6 +127,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - URL?
     subscript(key: Key<URL>) -> URL? {
         get { return defaults.url(forKey: key.fullKey) }
         set {
@@ -129,6 +136,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - [Any]?
     subscript(key: Key<[Any]>) -> [Any]? {
         get { return defaults.array(forKey: key.fullKey) }
         set {
@@ -137,6 +145,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - [String: Any]?
     subscript(key: Key<[String: Any]>) -> [String: Any]? {
         get { return defaults.dictionary(forKey: key.fullKey) }
         set {
@@ -145,6 +154,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - String?
     subscript(key: Key<String>) -> String? {
         get { return defaults.string(forKey: key.fullKey) }
         set {
@@ -153,6 +163,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - [String]?
     subscript(key: Key<[String]>) -> [String]? {
         get { return defaults.stringArray(forKey: key.fullKey) }
         set {
@@ -161,6 +172,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - Data?
     subscript(key: Key<Data>) -> Data? {
         get { return defaults.data(forKey: key.fullKey) }
         set {
@@ -169,6 +181,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - Bool
     subscript(key: Key<Bool>) -> Bool {
         get { return defaults.bool(forKey: key.fullKey) }
         set {
@@ -177,6 +190,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - Int
     subscript(key: Key<Int>) -> Int {
         get { return defaults.integer(forKey: key.fullKey) }
         set {
@@ -185,6 +199,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - Float
     subscript(key: Key<Float>) -> Float {
         get { return defaults.float(forKey: key.fullKey) }
         set {
@@ -193,6 +208,7 @@ public extension PreferenceManager {
         }
     }
 
+    // MARK: 数据类型 - Double
     subscript(key: Key<Double>) -> Double {
         get { return defaults.double(forKey: key.fullKey) }
         set {
@@ -200,7 +216,18 @@ public extension PreferenceManager {
             defaults.synchronize()
         }
     }
+    
+    // MARK: 数据类型 - Date
+    subscript(key: Key<Date>) -> Date? {
+        // 注意：Date虽然实现了Codable协议，但是在某些版本的iOS系统中无法解析，故需要单独写
+        get { return defaults.object(forKey: key.fullKey) as? Date }
+        set {
+            defaults.set(newValue, forKey: key.fullKey)
+            defaults.synchronize()
+        }
+    }
 
+    // MARK: 数据类型 - Codable
     subscript<T>(key: Key<T>) -> T? where T: Codable {
         get {
             guard let data = defaults.data(forKey: key.fullKey),
