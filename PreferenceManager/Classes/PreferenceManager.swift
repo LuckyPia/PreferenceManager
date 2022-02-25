@@ -23,18 +23,18 @@ public final class PreferenceManager {
     }
 
     // 默认值池
-    private var defaultPreferences: [BaseKey: Any] = [:]
+    private var defaultPreferences: [String: Any] = [:]
 
     /// 添加到默认池，不会重复添加
     private func addDefaultPreferences<T>(key: Key<T>) {
         // 有默认值则加入默认值池
         if let defaultValue = key.defaultValue,
-           !defaultPreferences.keys.contains(where: { $0 == key }){
+           !defaultPreferences.keys.contains(where: { $0 == key.fullKey }) {
             
-            defaultPreferences[key] = defaultValue
+            defaultPreferences[key.fullKey] = defaultValue
             let defaultValues: [String: Any] = defaultPreferences.reduce([:]) {
                 var dictionary = $0
-                dictionary[$1.key.fullKey] = $1.value
+                dictionary[$1.key] = $1.value
                 return dictionary
             }
             defaults.register(defaults: defaultValues)
@@ -56,7 +56,8 @@ public final class PreferenceManager {
         do {
             try FileManager.default.removeItem(at: folderURL)
         }catch {
-            print("归档清空失败：\(error)")
+            // 可能是并没有创建文件夹，所以清空失败
+            debugPrint("归档清空失败：\(error)")
         }
         
     }
@@ -76,7 +77,7 @@ public final class PreferenceManager {
         do {
             try FileManager.default.removeItem(at: url)
         }catch {
-            print("归档清空失败")
+            debugPrint("归档清空失败")
         }
     }
     
